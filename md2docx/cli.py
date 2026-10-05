@@ -4,14 +4,14 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 from . import __version__
-from .core import build_pdf, find_input_files, resolve_output_path
+from .core import build_docx, find_input_files, resolve_output_path
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        prog="md2pdf",
+        prog="md2docx",
         description=(
-            "Converte arquivos Markdown (.md, .markdown) em documentos PDF formatados."
+            "Converte arquivos Markdown (.md, .markdown) em documentos Word (.docx) formatados com suporte a diagramas SVG."
         ),
     )
     parser.add_argument(
@@ -31,7 +31,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         "--orientation",
         choices=["vertical", "horizontal"],
         default="vertical",
-        help="Orientação da página do PDF: vertical ou horizontal (padrão: vertical).",
+        help="Orientação da página: vertical ou horizontal (padrão: vertical).",
     )
     parser.add_argument(
         "-f",
@@ -50,19 +50,19 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         "-c",
         "--css",
         default=None,
-        help="Caminho para arquivo .css com estilos personalizados para o PDF.",
+        help="Caminho para arquivo .css com estilos personalizados.",
     )
     parser.add_argument(
         "-d",
         "--output-dir",
         default=None,
-        help="Pasta de destino para os PDFs gerados (padrão: mesma pasta do arquivo de origem).",
+        help="Pasta de destino para os DOCXs gerados (padrão: mesma pasta do arquivo de origem).",
     )
     parser.add_argument(
         "-w",
         "--overwrite",
         action="store_true",
-        help="Sobrescrever o PDF de destino caso já exista (padrão: cria 'nome (2).pdf').",
+        help="Sobrescrever o DOCX de destino caso já exista (padrão: cria 'nome (2).docx').",
     )
     parser.add_argument(
         "-v",
@@ -102,7 +102,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for source in files:
         dest = resolve_output_path(source, output_dir, overwrite=args.overwrite)
         try:
-            actual_dest = build_pdf(
+            actual_dest = build_docx(
                 source=source,
                 dest=dest,
                 orientation=args.orientation,
