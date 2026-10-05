@@ -31,7 +31,7 @@ python -m venv .venv
 pip install -e .
 ```
 
-Isso instala as dependências (`markdown`, `python-docx`, `beautifulsoup4`, `pillow`, `pygments`) e disponibiliza o comando `md2docx` (e o alias `md2pdf`) no terminal.
+Isso instala as dependências (`markdown`, `python-docx`, `beautifulsoup4`, `pillow`, `pygments`) e disponibiliza o comando `md2docx` no terminal.
 
 Alternativamente, para usar diretamente sem instalar o pacote:
 
